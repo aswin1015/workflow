@@ -1,0 +1,21 @@
+name: 09-Failure-Handling
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  failure-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step 1 (Fail)
+        run: exit 1
+
+      - name: On Failure
+        if: failure()
+        run: echo "Previous step failed"
+
+      - name: Always Run Cleanup
+        if: always()
+        run: echo "Cleanup completed"
